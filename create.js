@@ -2,8 +2,12 @@ import Rx from "rx";
 
 const source = Rx.Observable.create(observer => {
   observer.onNext("yingray say hi!");
+  observer.onError("EEEEEEEEEEEJ")
   observer.onNext("frank say hi!");
-  observer.onCompleted();
+  setTimeout(() => {
+    observer.onNext("ej say hi!");
+    observer.onCompleted();
+  })
 });
 
 source.subscribe(
@@ -11,3 +15,4 @@ source.subscribe(
   error => console.log(`Error: ${error}`),
   () => console.log("Completed!")
 );
+console.log('END')

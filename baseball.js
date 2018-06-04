@@ -1,7 +1,7 @@
 import Rx from "rx";
 
-let sec = 0;
-const myInterval = setInterval(() => console.log(`|`), 1000);
+const now = new Date();
+const myInterval = setInterval(() => console.log("."), 300);
 
 const pitcher = arr =>
   Rx.Observable.interval(1000)
@@ -23,5 +23,6 @@ const hitter = ball =>
   });
 
 pitcher([120, 103, 151, 98])
-  .concatMap(hitter)
-  .subscribe(value => console.log(value), () => {}, () => clearInterval(myInterval));
+  // .concatMap(ball => hitter(ball))
+  .flatMap(ball => hitter(ball))
+  .subscribe(value => console.log(`${new Date() - now} ms: ${value}`), () => {}, () => clearInterval(myInterval));
